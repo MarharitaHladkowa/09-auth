@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import TanstackProvider from "@/components/TanStackProvider/TanStackProvider";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -42,13 +43,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.variable}>
         <TanstackProvider>
-          <Header />
-          <main>
-            {children}
-            {modal}
-          </main>
+          <AuthProvider>
+            <Header />
+            <main>
+              {children}
+              {modal}
+            </main>
 
-          <Footer />
+            <Footer />
+          </AuthProvider>
         </TanstackProvider>
       </body>
     </html>
