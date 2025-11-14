@@ -1,3 +1,4 @@
+"use client";
 import css from "./EditProfilePage.module.css";
 import { useState, useEffect } from "react";
 import { updateMe, getMe } from "@/lib/clientApi";
