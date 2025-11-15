@@ -19,3 +19,4 @@ export interface CategoryType {
   id: string; // Будет именем тега (Tag Name)
   name: Tag;
 }
+export type NoteListResponse = Note[];
