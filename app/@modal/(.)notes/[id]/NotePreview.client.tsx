@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Modal from "@/components/Modal/Modal";
-import { fetchNoteById } from "@/lib/api";
+import { fetchNoteById } from "@/lib/api/api";
 import { useParams, useRouter } from "next/dist/client/components/navigation";
 import { useQuery } from "@tanstack/react-query";
 import type { Note } from "@/types/note";
