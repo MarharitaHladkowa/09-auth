@@ -1,31 +1,6 @@
-import axios from "axios";
 import type { Note, NewNote } from "@/types/note";
-import nextServer from "next/dist/server/next-server";
+import { nextServer } from "./api";
 import type { User } from "@/types/user";
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
-
-axios.defaults.headers.common.Authorization = `Bearer ${
-  process.env.NEXT_PUBLIC_NOTEHUB_TOKEN
-}`;
-interface SignUpRequest {
-  email: string;
-  password: string;
-}
-
-interface SignUpSuccessResponse {
-  user: User;
-  token: string;
-}
-
-export const signUpRequest = async (
-  credentials: SignUpRequest
-): Promise<SignUpSuccessResponse> => {
-  const { data } = await axios.post<SignUpSuccessResponse>(
-    "/users/register",
-    credentials
-  );
-  return data;
-};
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -36,8 +11,8 @@ export const fetchNotes = async (
   query: string,
   page: number,
   tag: string | undefined
-) => {
-  const response = await axios.get<FetchNotesResponse>("/notes", {
+): Promise<FetchNotesResponse> => {
+  const response = await nextServer.get<FetchNotesResponse>("/notes", {
     params: {
       search: query,
       page,
@@ -48,21 +23,20 @@ export const fetchNotes = async (
   return response.data;
 };
 export const createNote = async (newNote: NewNote) => {
-  const response = await axios.post<Note>("/notes", newNote);
+  const response = await nextServer.post<Note>("/notes", newNote);
   return response.data;
 };
 export const deleteNote = async (noteId: string) => {
-  const response = await axios.delete<Note>(`/notes/${noteId}`);
+  const response = await nextServer.delete<Note>(`/notes/${noteId}`);
   return response.data;
 };
 export const fetchNoteById = async (id: string): Promise<Note> => {
-  const response = await axios.get<Note>(`/notes/${id}`);
+  const response = await nextServer.get<Note>(`/notes/${id}`);
   return response.data;
 };
 export type RegisterRequest = {
   email: string;
   password: string;
-  userName: string;
 };
 
 export const register = async (data: RegisterRequest) => {
@@ -88,18 +62,18 @@ export const checkSession = async () => {
 };
 
 export const getMe = async () => {
-  const { data } = await nextServer.get<User>("/auth/me");
+  const { data } = await nextServer.get<User>("/users/me");
   return data;
 };
 export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
 export type UpdateUserRequest = {
-  userName?: string;
+  username?: string;
   photoUrl?: string;
 };
 
 export const updateMe = async (payload: UpdateUserRequest) => {
-  const res = await nextServer.put<User>("/auth/me", payload);
+  const res = await nextServer.patch<User>("/users/me", payload);
   return res.data;
 };

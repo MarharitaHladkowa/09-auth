@@ -1,8 +1,9 @@
 import { cookies } from "next/headers";
-import { nextServer } from "./api/api";
+import { nextServer } from "./api";
 import type { User } from "@/types/user";
 import { Note } from "@/types/note";
 import axios from "axios";
+import type { FetchNotesResponse } from "@/types/note";
 export const checkServerSession = async () => {
   // Дістаємо поточні cookie
   const cookieStore = await cookies();

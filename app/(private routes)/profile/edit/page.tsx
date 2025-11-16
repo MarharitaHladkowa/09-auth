@@ -3,12 +3,20 @@ import css from "./EditProfilePage.module.css";
 import { useState, useEffect } from "react";
 import { updateMe, getMe } from "@/lib/api/clientApi";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/store/authStore";
 
 const EditProfile = () => {
   const [userName, setUserName] = useState("");
+  const user = useAuthStore((state) => state.user);
+  const setUser = useAuthStore((state) => state.setUser);
+  const router = useRouter();
+  const clearAuthenticated = useAuthStore(
+    (state) => state.clearIsAuthenticated
+  );
   useEffect(() => {
     getMe().then((user) => {
-      setUserName(user.userName ?? "");
+      setUserName(user.username ?? "");
     });
   }, []);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +25,7 @@ const EditProfile = () => {
 
   const handleSaveUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await updateMe({ userName, photoUrl: "" });
+    await updateMe({ username: userName, photoUrl: "" });
   };
   return (
     <main className={css.mainContent}>
@@ -25,7 +33,7 @@ const EditProfile = () => {
         <h1 className={css.formTitle}>Edit Profile</h1>
 
         <Image
-          src={user.avatar} // Динамічна URL аватарки користувача
+          src={user?.avatar} // Динамічна URL аватарки користувача
           alt="Аватар користувача"
           width={120}
           height={120}

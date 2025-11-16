@@ -20,3 +20,7 @@ export interface CategoryType {
   name: Tag;
 }
 export type NoteListResponse = Note[];
+export interface FetchNotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
