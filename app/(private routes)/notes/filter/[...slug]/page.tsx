@@ -1,6 +1,6 @@
 import React from "react";
 import { ALL_NOTES } from "@/lib/constants";
-import { fetchNotes } from "@/lib/api/api";
+import { fetchNotes } from "@/lib/api/serverApi";
 import NotesClient from "./Notes.client";
 import {
   dehydrate,

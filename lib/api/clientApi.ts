@@ -1,7 +1,7 @@
 import axios from "axios";
-import type { Note, NewNote } from "../types/note";
+import type { Note, NewNote } from "@/types/note";
 import nextServer from "next/dist/server/next-server";
-import type { User } from "../types/user";
+import type { User } from "@/types/user";
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api";
 
 axios.defaults.headers.common.Authorization = `Bearer ${
