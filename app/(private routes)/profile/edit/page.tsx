@@ -1,7 +1,8 @@
 "use client";
 import css from "./EditProfilePage.module.css";
 import { useState, useEffect } from "react";
-import { updateMe, getMe } from "@/lib/clientApi";
+import { updateMe, getMe } from "@/lib/api/clientApi";
+import Image from "next/image";
 
 const EditProfile = () => {
   const [userName, setUserName] = useState("");
@@ -23,9 +24,9 @@ const EditProfile = () => {
       <div className={css.profileCard}>
         <h1 className={css.formTitle}>Edit Profile</h1>
 
-        <img
-          src="avatar"
-          alt="User Avatar"
+        <Image
+          src={user.avatar} // Динамічна URL аватарки користувача
+          alt="Аватар користувача"
           width={120}
           height={120}
           className={css.avatar}

@@ -1,7 +1,8 @@
 import css from "./ProfilePage.module.css";
 import { Metadata } from "next";
-import { getServerMe } from "@/lib/serverApi";
-import Link from "next/dist/client/link";
+import { getServerMe } from "@/lib/api/serverApi";
+import Link from "next/link";
+import Image from "next/image"; // Добавлен импорт Image
 
 export const metadata: Metadata = {
   title: "Profile Page",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 };
 export default async function ProfilePage() {
   const user = await getServerMe();
+  const avatarSrc = user.avatar;
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
@@ -17,8 +19,8 @@ export default async function ProfilePage() {
           <Link href="/profile/edit">Edit profile</Link>
         </div>
         <div className={css.avatarWrapper}>
-          <img
-            src="Avatar"
+          <Image
+            src={avatarSrc}
             alt="User Avatar"
             width={120}
             height={120}

@@ -2,7 +2,7 @@
 import css from "./SignUpPage.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { register, RegisterRequest } from "@/lib/api/api";
+import { register, RegisterRequest } from "@/lib/api/clientApi";
 import { ApiError } from "@/app/api/api";
 import { useAuthStore } from "@/lib/store/authStore";
 
@@ -63,10 +63,9 @@ const SignUpPage = () => {
             Register
           </button>
         </div>
-
-        <p className={css.error}>Error</p>
       </form>
-      {error && <p>{error}</p>}
+
+      {error && <p className={css.error}>{error}</p>}
     </main>
   );
 };

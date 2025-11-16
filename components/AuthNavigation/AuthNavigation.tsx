@@ -26,10 +26,15 @@ const AuthNavigation = () => {
   // Якщо є сесія - відображаємо кнопку Logout та інформацію про користувача
   // інакше - лінки для авторизації
   return isAuthenticated ? (
-    <li>
-      <p>{user?.email}</p>
-      <button onClick={handleLogout}>Logout</button>
-    </li>
+    <>
+      <li>
+        <Link href="/profile">Profile</Link>
+      </li>
+      <li>
+        <p>{user?.email}</p>
+        <button onClick={handleLogout}>Logout</button>
+      </li>
+    </>
   ) : (
     <>
       <li>
