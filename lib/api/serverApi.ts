@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 import { nextServer } from "./api";
 import type { User } from "@/types/user";
 import { Note } from "@/types/note";
-import axios from "axios";
 import type { FetchNotesResponse } from "@/types/note";
 export const checkServerSession = async () => {
   // Дістаємо поточні cookie
@@ -26,7 +25,12 @@ export const getServerMe = async (): Promise<User> => {
   return data;
 };
 export const fetchNoteById = async (id: string): Promise<Note> => {
-  const response = await axios.get<Note>(`/notes/${id}`);
+  const cookieStore = await cookies();
+  const response = await nextServer.get<Note>(`/notes/${id}`, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
   return response.data;
 };
 export const fetchNotes = async (
@@ -34,12 +38,16 @@ export const fetchNotes = async (
   page: number,
   tag: string | undefined
 ) => {
-  const response = await axios.get<FetchNotesResponse>("/notes", {
+  const cookieStore = await cookies();
+  const response = await nextServer.get<FetchNotesResponse>("/notes", {
     params: {
       search: query,
       page,
       perPage: 12,
       tag,
+    },
+    headers: {
+      Cookie: cookieStore.toString(),
     },
   });
   return response.data;
