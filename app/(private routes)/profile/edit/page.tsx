@@ -42,12 +42,11 @@ const EditProfile = () => {
   }, [clearIsAuthenticated, setUser, user]);
 
   // Обработчик изменения поля ввода
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   };
 
-  // 2. Функция для сохранения данных (обработчик submit)
-  const handleSaveUser = async (event) => {
+  const handleSaveUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
