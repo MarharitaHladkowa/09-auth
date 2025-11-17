@@ -12,15 +12,6 @@ const Header = () => {
         <Link href="/">Home</Link>
 
         <Link href={`/notes/filter/${ALL_NOTES}`}>Notes</Link>
-        <Link href={`/profile`} prefetch={false} className={css.navigationLink}>
-          Profile
-        </Link>
-        <Link href={`/login`} prefetch={false} className={css.navigationLink}>
-          Login
-        </Link>
-        <Link href={`/sign-up`} prefetch={false} className={css.navigationLink}>
-          Sign up
-        </Link>
         <AuthNavigation />
       </nav>
     </header>

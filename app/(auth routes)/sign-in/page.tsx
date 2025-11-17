@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { login, LoginRequest } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./SignInPage.module.css";
-import { ApiError } from "next/dist/server/api-utils";
 const SignInPage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
@@ -22,12 +21,8 @@ const SignInPage = () => {
       } else {
         setError("Invalid email or password");
       }
-    } catch (error) {
-      setError(
-        (error as ApiError).response?.data?.error ??
-          (error as ApiError).message ??
-          "Oops... some error"
-      );
+    } catch {
+      setError("Invalid email or password");
     }
   };
 
